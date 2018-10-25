@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EarringsModelStoreContainer" CdmEntityContainer="EarringsEntitiesContext">
+    <EntitySetMapping Name="USERSCREDENTIALS">
+      <EntityTypeMapping TypeName="EarringsModel.USERSCREDENTIAL">
+        <MappingFragment StoreEntitySet="USERSCREDENTIALS">
+          <ScalarProperty Name="USERSID" ColumnName="USERSID" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="USERNAMEPASSWORD" ColumnName="USERNAMEPASSWORD" />
+          <ScalarProperty Name="USERTOKEN" ColumnName="USERTOKEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

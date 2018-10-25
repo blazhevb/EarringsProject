@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EarringsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="USERSCREDENTIAL">
+    <Key>
+      <PropertyRef Name="USERSID" />
+    </Key>
+    <Property Name="USERSID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="USERNAMEPASSWORD" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="USERTOKEN" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="EarringsEntitiesContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="USERSCREDENTIALS" EntityType="Self.USERSCREDENTIAL" />
+  </EntityContainer>
+</Schema>
