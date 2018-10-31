@@ -82,3 +82,7 @@ D:\Workstuff\EarringsProject\Earrings\obj\Debug\Earrings.csprojResolveAssemblyRe
 D:\Workstuff\EarringsProject\Earrings\obj\Debug\Earrings.csproj.CoreCompileInputs.cache
 D:\Workstuff\EarringsProject\Earrings\obj\Debug\Earrings.dll
 D:\Workstuff\EarringsProject\Earrings\obj\Debug\Earrings.pdb
+D:\Workstuff\EarringsProject\Earrings\bin\EntityFramework.dll
+D:\Workstuff\EarringsProject\Earrings\bin\EntityFramework.SqlServer.dll
+D:\Workstuff\EarringsProject\Earrings\bin\EntityFramework.xml
+D:\Workstuff\EarringsProject\Earrings\bin\EntityFramework.SqlServer.xml

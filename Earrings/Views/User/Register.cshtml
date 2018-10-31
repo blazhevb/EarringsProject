@@ -1,29 +1,36 @@
-﻿
+﻿@model Earrings.Models.RegistrationRequest
+
+
 @{
     ViewBag.Title = "Register";
 }
+@using(Html.BeginForm())
+{
 
-<div class="container">
-    <h2>@ViewBag.Title</h2>
-    <form>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    @Html.AntiForgeryToken();
+
+        <div class="container">
+            <h2>@ViewBag.Title</h2>
+            <form>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, "Email:")
+                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @type = "email", @class = "form-control", @id = "email", @placeholder = "Enter email", @name = "email" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username, "Username:")
+                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @type = "text", @class = "form-control", @id = "Username", @placeholder = "Enter username", @name = "Username" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, "Enter password:")
+                    @Html.PasswordFor(model => model.Password, htmlAttributes: new { @type = "password", @class="form-control", @id="pwd", @placeholder="Enter password", @name="pwd" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Confirm password:")
+                    @Html.TextBox("Confirm password:")
+                </div>
+                <br />
+                <button type="submit" class="btn btn-default">Register</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
-        </div>
-        <div class="form-group">
-            <label for="pwd">Enter password:</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-        </div>
-        <div class="form-group">
-            <label for="pwd">Confirm password:</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Confirm password" name="pwd">
-        </div>
-        <br />
-        <button type="submit" class="btn btn-default">Register</button>
-    </form>
-</div>
+    }
 
