@@ -15,21 +15,26 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Email, "Email:")
                     @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @type = "email", @class = "form-control", @id = "email", @placeholder = "Enter email", @name = "email" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Username, "Username:")
-                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @type = "text", @class = "form-control", @id = "Username", @placeholder = "Enter username", @name = "Username" })
+                    @Html.TextBoxFor(model => model.Username, htmlAttributes: new { @type = "text", @class = "form-control", @id = "Username", @placeholder = "Enter username", @name = "Username" })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Password, "Enter password:")
-                    @Html.PasswordFor(model => model.Password, htmlAttributes: new { @type = "password", @class="form-control", @id="pwd", @placeholder="Enter password", @name="pwd" })
+                    @Html.PasswordFor(model => model.Password, htmlAttributes: new { @type = "password", @class = "form-control", @id = "pwd", @placeholder = "Enter password", @name = "pwd" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.Label("Confirm password:")
-                    @Html.TextBox("Confirm password:")
+                    @Html.PasswordFor(model => model.PasswordConfirm, htmlAttributes: new { @type = "password", @class = "form-control", @id = "pwd", @placeholder = "Confirm password", @name = "pwd" })
+                    @Html.ValidationMessageFor(model => model.PasswordConfirm, "", new { @class = "text-danger" })
                 </div>
                 <br />
                 <button type="submit" class="btn btn-default">Register</button>
+                @Html.ActionLink("Clear", "Register", "User", htmlAttributes: new {@type = "button", @class = "btn btn-default", @id = "clear", @placeholder = "Clear", @name = "clear" })
             </form>
         </div>
     }
