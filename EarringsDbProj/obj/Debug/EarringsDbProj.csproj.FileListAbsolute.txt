@@ -15,3 +15,4 @@ D:\Workstuff\EarringsProject\EarringsDbProj\bin\Debug\EntityFramework.xml
 D:\Workstuff\EarringsProject\EarringsDbProj\obj\Debug\EarringsDbProj.csproj.CoreCompileInputs.cache
 D:\Workstuff\EarringsProject\EarringsDbProj\obj\Debug\EarringsDbProj.dll
 D:\Workstuff\EarringsProject\EarringsDbProj\obj\Debug\EarringsDbProj.pdb
+D:\Workstuff\EarringsProject\EarringsDbProj\obj\Debug\EarringsDbProj.csprojResolveAssemblyReference.cache

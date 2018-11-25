@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="265741eb0f844405a9b945178aabe0aa" Name="Diagram1">
-        <EntityTypeShape EntityType="EarringsModel.USERSCREDENTIAL" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="53327c952b1e47d099182751381fa076" Name="Diagram1">
+        <EntityTypeShape EntityType="EarringsModel.ConfigurationParameters" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EarringsModel.UsersCredentials" Width="2.75" PointX="3.75" PointY="1.25" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

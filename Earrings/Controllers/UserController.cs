@@ -20,15 +20,25 @@ namespace Earrings.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Register(RegistrationRequest registration)
         {
             if(ModelState.IsValid)
             {
                 EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();
-                userFactory.CreateUser(registration.Email, registration.Username, registration.Password);
+                string result = userFactory.CreateUser(registration.Email, registration.Username, registration.Password);
+                if(result != null)
+                {
+                    if(result.ToLowerInvariant().Contains("email"))
+                    {
+                        ModelState.AddModelError("Email", result);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Username", result);
+                    }
+                }
             }
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Login()

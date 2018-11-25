@@ -12,11 +12,13 @@ namespace EarringsDbProj
     using System;
     using System.Collections.Generic;
     
-    public partial class USERSCREDENTIAL
+    public partial class UsersCredentials
     {
-        public long USERSID { get; set; }
-        public string USERNAME { get; set; }
-        public string USERNAMEPASSWORD { get; set; }
-        public string USERTOKEN { get; set; }
+        public long UserID { get; set; }
+        public string Username { get; set; }
+        public byte[] UsernamePassword { get; set; }
+        public string UserEmail { get; set; }
+        public string UserToken { get; set; }
+        public System.DateTime UserRegistrationDate { get; set; }
     }
 }

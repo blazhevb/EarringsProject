@@ -1,15 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="EarringsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="USERSCREDENTIALS">
+  <EntityType Name="ConfigurationParameters">
     <Key>
-      <PropertyRef Name="USERSID" />
+      <PropertyRef Name="ParameterName" />
     </Key>
-    <Property Name="USERSID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="USERNAME" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="USERNAMEPASSWORD" Type="nvarchar" MaxLength="256" Nullable="false" />
-    <Property Name="USERTOKEN" Type="varchar" MaxLength="32" />
+    <Property Name="ParameterName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="ParameterValue" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsersCredentials">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UsernamePassword" Type="varbinary(max)" Nullable="false" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="UserToken" Type="varchar" MaxLength="32" />
+    <Property Name="UserRegistrationDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityContainer Name="EarringsModelStoreContainer">
-    <EntitySet Name="USERSCREDENTIALS" EntityType="Self.USERSCREDENTIALS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConfigurationParameters" EntityType="Self.ConfigurationParameters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsersCredentials" EntityType="Self.UsersCredentials" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

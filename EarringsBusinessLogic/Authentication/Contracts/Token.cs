@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace EarringsBusinessLogic.Authentication.Contracts
 {
-    public interface IUserFactory
+    public class Token : IToken
     {
-        string CreateUser(string email, string username, string password);
+        public string GetToken()
+        {
+            Guid token = Guid.NewGuid();
+
+            return token.ToString("N");
+        }
     }
 }

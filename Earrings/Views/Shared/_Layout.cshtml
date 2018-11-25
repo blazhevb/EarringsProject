@@ -22,12 +22,25 @@
                 <ul class="nav navbar-nav ">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>                   
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Login", "Login", "User")</li>
-                    <li>@Html.ActionLink("Register", "Register", "User")</li>
-                </ul>
+                @{
+                    if(!true)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Login", "Login", "User")</li>
+                            <li>@Html.ActionLink("Register", "Register", "User")</li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            @Html.
+                            <li>@Html.ActionLink("Profile", "Login", "User")</li>
+                            <li>@Html.ActionLink("Logout", "Login", "User")</li>
+                        </ul>
+                    }
+                }
             </div>
         </div>
     </div>

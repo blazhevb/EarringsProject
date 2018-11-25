@@ -13,10 +13,10 @@ namespace EarringsDbProj
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EarringsEntitiesContext : DbContext
+    public partial class EarringsDatabaseEntities : DbContext
     {
-        public EarringsEntitiesContext()
-            : base("name=EarringsEntitiesContext")
+        public EarringsDatabaseEntities()
+            : base("name=EarringsDatabaseEntities")
         {
         }
     
@@ -25,6 +25,7 @@ namespace EarringsDbProj
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<USERSCREDENTIAL> USERSCREDENTIALS { get; set; }
+        public DbSet<ConfigurationParameters> ConfigurationParameters { get; set; }
+        public DbSet<UsersCredentials> UsersCredentials { get; set; }
     }
 }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace EarringsBusinessLogic.Authentication.Contracts
 {
-    public interface IUserFactory
+    public interface IPasswordManager
     {
-        string CreateUser(string email, string username, string password);
+        byte[] GetEncryptedPassword(string username, string password);
+
+        string GetDecryptedPassword(string username, byte[] encryptedData);
     }
 }

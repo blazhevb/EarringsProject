@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EarringsBusinessLogic.Authentication.Contracts
 {
-    public interface IUserFactory
+    public interface IToken
     {
-        string CreateUser(string email, string username, string password);
+        string GetToken();
     }
 }

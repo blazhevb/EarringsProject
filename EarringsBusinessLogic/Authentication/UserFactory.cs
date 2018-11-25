@@ -1,24 +1,48 @@
 ﻿using EarringsBusinessLogic.Authentication.Contracts;
 using EarringsDbProj;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarringsBusinessLogic.Authentication
 {
     public class UserFactory : IUserFactory
     {
-        public void CreateUser(string email, string username, string password)
+        public string CreateUser(string email, string username, string password)
         {
-            USERSCREDENTIAL credential = new USERSCREDENTIAL() { USERNAME = username, USERNAMEPASSWORD = password };
+            PasswordManager passwordManager = new PasswordManager();
+            byte[] encryptedPassword = passwordManager.GetEncryptedPassword(username, password);
+            Token t = new Token();
+            string token = t.GetToken();
 
-            using(EarringsEntitiesContext ctx = new EarringsEntitiesContext())
+            using(EarringsDatabaseEntities ctx = new EarringsDatabaseEntities())
             {
-                ctx.USERSCREDENTIALS.Add(credential);
+                UsersCredentials existingRecord = ctx.UsersCredentials.Where(user => user.UserEmail == email || user.Username == username).FirstOrDefault();
+                if(existingRecord != null)
+                {
+                    if(existingRecord.UserEmail == email)
+                    {
+                        return "There is already a user with this email.";
+                    }
+                    else
+                    {
+                        return "This username is already taken.";
+                    }
+                }
+
+                UsersCredentials credentials = new UsersCredentials()
+                {
+                    UserEmail = email,
+                    Username = username,
+                    UsernamePassword = encryptedPassword,
+                    UserRegistrationDate = DateTime.Now,
+                    UserToken = token
+                };
+
+                ctx.UsersCredentials.Add(credentials);
                 ctx.SaveChanges();
             }
+
+            return null;
         }
     }
 }
