@@ -7,12 +7,11 @@ namespace EarringsBusinessLogic.Authentication
 {
     public class UserFactory : IUserFactory
     {
-        public string CreateUser(string email, string username, string password)
+        public string CreateUser(string email, string username, string password, string token)
         {
             PasswordManager passwordManager = new PasswordManager();
             byte[] encryptedPassword = passwordManager.GetEncryptedPassword(username, password);
-            Token t = new Token();
-            string token = t.GetToken();
+
 
             using(EarringsDatabaseEntities ctx = new EarringsDatabaseEntities())
             {

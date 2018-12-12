@@ -48,7 +48,7 @@
     <Compile Include="Authentication\Contracts\IPasswordManager.cs" />
     <Compile Include="Authentication\Contracts\IToken.cs" />
     <Compile Include="Authentication\Contracts\IUserFactory.cs" />
-    <Compile Include="Authentication\Contracts\Token.cs" />
+    <Compile Include="Authentication\Token.cs" />
     <Compile Include="Authentication\PasswordManager.cs" />
     <Compile Include="Authentication\UserFactory.cs" />
     <Compile Include="Encryption\Contracts\IEncryption.cs" />

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using EarringsBusinessLogic;
 using EarringsBusinessLogic.Authentication;
+using EarringsBusinessLogic.Authentication.Contracts;
 
 namespace Earrings.Controllers
 {
@@ -22,10 +23,13 @@ namespace Earrings.Controllers
         [HttpPost]
         public ActionResult Register(RegistrationRequest registration)
         {
+            IToken token = new Token();
+            string tk = token.GetToken();
+
             if(ModelState.IsValid)
             {
-                EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();
-                string result = userFactory.CreateUser(registration.Email, registration.Username, registration.Password);
+                EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();               
+                string result = userFactory.CreateUser(registration.Email, registration.Username, registration.Password, tk);
                 if(result != null)
                 {
                     if(result.ToLowerInvariant().Contains("email"))
@@ -38,7 +42,7 @@ namespace Earrings.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", tk);
         }
 
         public ActionResult Login()
