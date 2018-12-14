@@ -13,14 +13,15 @@ namespace Earrings.Controllers
     public class UserController : Controller
     {
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Message = "Registration form.";
-
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(RegistrationRequest registration)
         {
             IToken token = new Token();
