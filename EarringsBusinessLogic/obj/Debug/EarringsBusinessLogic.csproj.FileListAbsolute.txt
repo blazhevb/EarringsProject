@@ -22,3 +22,5 @@ D:\Workstuff\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLog
 D:\Workstuff\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.csproj.CoreCompileInputs.cache
 D:\Workstuff\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.dll
 D:\Workstuff\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.pdb
+D:\Workstuff\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+D:\Workstuff\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.SqlServer.xml

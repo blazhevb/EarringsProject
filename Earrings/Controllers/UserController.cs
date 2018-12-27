@@ -22,28 +22,33 @@ namespace Earrings.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegistrationRequest registration)
+        public ActionResult Register(RegistrationRequestModel model)
         {
-            IToken token = new Token();
-            string tk = token.GetToken();
+
 
             if(ModelState.IsValid)
             {
-                EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();               
-                string result = userFactory.CreateUser(registration.Email, registration.Username, registration.Password, tk);
-                if(result != null)
+                IToken token = new Token();
+                string tk = token.GetToken();
+                EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();
+                int result = (int)userFactory.CreateUser(model.Email, model.Username, model.Password, tk);
+
+                switch(result)
                 {
-                    if(result.ToLowerInvariant().Contains("email"))
-                    {
-                        ModelState.AddModelError("Email", result);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Username", result);
-                    }
+                    case 1:
+                        ModelState.AddModelError("Email", "Email is already in use.");
+                        break;
+                    case 2:
+                        ModelState.AddModelError("Username", "Username is already taken.");
+                        break;
+                    case 4:            
+                        return RedirectToAction("Index", "Home", tk);
+                    default:
+                        ModelState.AddModelError("Other", "Please try again.");
+                        break;
                 }
             }
-            return RedirectToAction("Index", "Home", tk);
+            return View(model);
         }
 
         public ActionResult Login()

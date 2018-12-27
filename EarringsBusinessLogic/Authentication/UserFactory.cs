@@ -1,4 +1,5 @@
 ﻿using EarringsBusinessLogic.Authentication.Contracts;
+using EarringsBusinessLogic.Enums;
 using EarringsDbProj;
 using System;
 using System.Linq;
@@ -7,41 +8,46 @@ namespace EarringsBusinessLogic.Authentication
 {
     public class UserFactory : IUserFactory
     {
-        public string CreateUser(string email, string username, string password, string token)
+        public AuthenticationResult CreateUser(string email, string username, string password, string token)
         {
             PasswordManager passwordManager = new PasswordManager();
             byte[] encryptedPassword = passwordManager.GetEncryptedPassword(username, password);
 
-
-            using(EarringsDatabaseEntities ctx = new EarringsDatabaseEntities())
+            try
             {
-                UsersCredentials existingRecord = ctx.UsersCredentials.Where(user => user.UserEmail == email || user.Username == username).FirstOrDefault();
-                if(existingRecord != null)
+                using(EarringsDatabaseEntities ctx = new EarringsDatabaseEntities())
                 {
-                    if(existingRecord.UserEmail == email)
+                    UsersCredentials existingRecord = ctx.UsersCredentials.Where(user => user.UserEmail == email || user.Username == username).FirstOrDefault();
+                    if(existingRecord != null)
                     {
-                        return "There is already a user with this email.";
+                        if(existingRecord.UserEmail == email)
+                        {
+                            return AuthenticationResult.EmailTaken;
+                        }
+                        else
+                        {
+                            return AuthenticationResult.UsernameTaken;
+                        }
                     }
-                    else
+
+                    UsersCredentials credentials = new UsersCredentials()
                     {
-                        return "This username is already taken.";
-                    }
+                        UserEmail = email,
+                        Username = username,
+                        UsernamePassword = encryptedPassword,
+                        UserRegistrationDate = DateTime.Now,
+                        UserToken = token
+                    };
+
+                    ctx.UsersCredentials.Add(credentials);
+                    ctx.SaveChanges();
+                    return AuthenticationResult.Success;
                 }
-
-                UsersCredentials credentials = new UsersCredentials()
-                {
-                    UserEmail = email,
-                    Username = username,
-                    UsernamePassword = encryptedPassword,
-                    UserRegistrationDate = DateTime.Now,
-                    UserToken = token
-                };
-
-                ctx.UsersCredentials.Add(credentials);
-                ctx.SaveChanges();
             }
-
-            return null;
+            catch(Exception e)
+            {
+                return AuthenticationResult.Fail;
+            }                       
         }
     }
 }

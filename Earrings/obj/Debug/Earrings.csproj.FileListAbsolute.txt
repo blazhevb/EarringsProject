@@ -139,3 +139,5 @@ D:\Workstuff\EarringsProject\Earrings\bin\roslyn\vbc.exe.config
 D:\Workstuff\EarringsProject\Earrings\bin\roslyn\vbc.rsp
 D:\Workstuff\EarringsProject\Earrings\bin\roslyn\VBCSCompiler.exe
 D:\Workstuff\EarringsProject\Earrings\bin\roslyn\VBCSCompiler.exe.config
+D:\Workstuff\EarringsProject\Earrings\bin\EntityFramework.SqlServer.dll
+D:\Workstuff\EarringsProject\Earrings\bin\EntityFramework.SqlServer.xml

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarringsBusinessLogic.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace EarringsBusinessLogic.Authentication.Contracts
 {
     public interface IUserFactory
     {
-        string CreateUser(string email, string username, string password, string token);
+        AuthenticationResult CreateUser(string email, string username, string password, string token);
     }
 }
