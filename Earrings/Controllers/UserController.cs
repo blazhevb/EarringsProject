@@ -41,7 +41,8 @@ namespace Earrings.Controllers
                     case 2:
                         ModelState.AddModelError("Username", "Username is already taken.");
                         break;
-                    case 4:            
+                    case 4:
+                        WriteCookie(Response, tk);
                         return RedirectToAction("Index", "Home", tk);
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
@@ -51,6 +52,7 @@ namespace Earrings.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult Login()
         {
             ViewBag.Message = "Login form.";
@@ -58,5 +60,11 @@ namespace Earrings.Controllers
             return View();
         }
 
+        private void WriteCookie(HttpResponseBase response, string token)
+        {
+            HttpCookie cookie = new HttpCookie("auth");
+            cookie.Value = token;
+            response.Cookies.Add(cookie);
+        }
     }
 }
