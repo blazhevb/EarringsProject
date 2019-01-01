@@ -12,6 +12,9 @@ namespace Earrings.Controllers
 {
     public class UserController : Controller
     {
+        private const string COOKIE_NAME = "tknck";
+        private string token;
+
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Register()
@@ -41,8 +44,10 @@ namespace Earrings.Controllers
                     case 2:
                         ModelState.AddModelError("Username", "Username is already taken.");
                         break;
-                    case 4:            
-                        return RedirectToAction("Index", "Home", tk);
+                    case 4:
+                        this.token = tk;
+                        ReturnTokenCookie(tk);
+                        return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
                         break;
@@ -56,6 +61,13 @@ namespace Earrings.Controllers
             ViewBag.Message = "Login form.";
 
             return View();
+        }
+
+        private void ReturnTokenCookie(string token)
+        {
+            var cookie = new HttpCookie(COOKIE_NAME);
+            cookie.Value = token;
+            Response.Cookies.Add(cookie);
         }
 
     }
