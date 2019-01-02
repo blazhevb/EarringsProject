@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using EarringsBusinessLogic;
 using EarringsBusinessLogic.Authentication;
 using EarringsBusinessLogic.Authentication.Contracts;
+using System.Web.Security;
 
 namespace Earrings.Controllers
 {
@@ -47,6 +48,7 @@ namespace Earrings.Controllers
                     case 4:
                         this.token = tk;
                         ReturnTokenCookie(tk);
+                        FormsAuthentication.SetAuthCookie(HttpContext.User.Identity.Name, false);
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
