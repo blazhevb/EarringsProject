@@ -47,8 +47,8 @@ namespace Earrings.Controllers
                         break;
                     case 4:
                         this.token = tk;
-                        ReturnTokenCookie(tk);
-                        FormsAuthentication.SetAuthCookie(HttpContext.User.Identity.Name, false);
+                        ReturnTokenCookie(this.token);
+                        //membership class System.web.Security
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
@@ -67,9 +67,11 @@ namespace Earrings.Controllers
 
         private void ReturnTokenCookie(string token)
         {
-            var cookie = new HttpCookie(COOKIE_NAME);
+            var cookie = FormsAuthentication.GetAuthCookie(HttpContext.User.Identity.Name, false);
+            cookie.Name = "authtkn";
             cookie.Value = token;
             Response.Cookies.Add(cookie);
+            string s = FormsAuthentication.FormsCookieName;
         }
 
     }
