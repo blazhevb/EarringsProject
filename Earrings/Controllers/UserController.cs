@@ -8,13 +8,14 @@ using EarringsBusinessLogic;
 using EarringsBusinessLogic.Authentication;
 using EarringsBusinessLogic.Authentication.Contracts;
 using System.Web.Security;
+using Earrings.Attributes;
 
 namespace Earrings.Controllers
 {
     public class UserController : Controller
     {
         private const string COOKIE_NAME = "tknck";
-        private string token;
+        private static readonly string token = "";
 
         [HttpGet]
         [AllowAnonymous]
@@ -48,7 +49,7 @@ namespace Earrings.Controllers
                     case 4:
                         this.token = tk;
                         ReturnTokenCookie(this.token);
-                        //membership class System.web.Security
+                        
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
@@ -58,10 +59,11 @@ namespace Earrings.Controllers
             return View(model);
         }
 
+        [AuthorizeCustom(token)]
         public ActionResult Login()
         {
             ViewBag.Message = "Login form.";
-
+            bool x = Request.IsAuthenticated;
             return View();
         }
 
@@ -71,7 +73,6 @@ namespace Earrings.Controllers
             cookie.Name = "authtkn";
             cookie.Value = token;
             Response.Cookies.Add(cookie);
-            string s = FormsAuthentication.FormsCookieName;
         }
 
     }
