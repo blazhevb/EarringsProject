@@ -12,10 +12,11 @@ using Earrings.Attributes;
 
 namespace Earrings.Controllers
 {
+    [AuthorizeCustom]
     public class UserController : Controller
     {
         private const string COOKIE_NAME = "tknck";
-        private static readonly string token = "";
+        private const string token = "";
 
         [HttpGet]
         [AllowAnonymous]
@@ -47,9 +48,7 @@ namespace Earrings.Controllers
                         ModelState.AddModelError("Username", "Username is already taken.");
                         break;
                     case 4:
-                        this.token = tk;
-                        ReturnTokenCookie(this.token);
-                        
+                        ReturnTokenCookie(model.Username, tk);                        
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
@@ -59,7 +58,6 @@ namespace Earrings.Controllers
             return View(model);
         }
 
-        [AuthorizeCustom(token)]
         public ActionResult Login()
         {
             ViewBag.Message = "Login form.";
@@ -67,11 +65,11 @@ namespace Earrings.Controllers
             return View();
         }
 
-        private void ReturnTokenCookie(string token)
+        private void ReturnTokenCookie(string username, string token)
         {
             var cookie = FormsAuthentication.GetAuthCookie(HttpContext.User.Identity.Name, false);
             cookie.Name = "authtkn";
-            cookie.Value = token;
+            cookie.Values.Add(username, token); 
             Response.Cookies.Add(cookie);
         }
 

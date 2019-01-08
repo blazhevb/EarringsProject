@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\AuthenticationManager.cs" />
+    <Compile Include="Authentication\Contracts\IAuthenticatable.cs" />
     <Compile Include="Authentication\Contracts\IPasswordManager.cs" />
     <Compile Include="Authentication\Contracts\IToken.cs" />
     <Compile Include="Authentication\Contracts\IUserFactory.cs" />
