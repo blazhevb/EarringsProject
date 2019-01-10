@@ -17,16 +17,20 @@ namespace Earrings.Attributes
 
         public AuthorizeCustomAttribute()
         {
-            
+            //bool s = AuthorizeCustomAttribute.SkipAuthorization(HttpContext.Current.Request.)
+            GetUsername();
             IAuthenticatable mgr = new AuthenticationManager();
             this.token = mgr.FetchToken(this.username);
         }
 
         private void GetUsername()
         {
-            NameValueCollection collection = HttpContext.Current.Request.Cookies["authtkn"].Values;            
-            this.username = collection.Keys[0];
-            this.requestToken = collection[username];
+            string[] cookieValues = HttpContext.Current.Request.Cookies["authtkn"].Value.Split(':');
+            if(cookieValues.Length == 2)
+            {
+                this.username = cookieValues[0];
+                this.requestToken = cookieValues[1];
+            }           
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
@@ -40,5 +44,11 @@ namespace Earrings.Attributes
                 return false;
             }
         }
+
+        //private static bool SkipAuthorization(ControllerContext context)
+        //{
+        //    context.RouteData.GetRequiredString("AllowAnonymous");
+        //    return true;
+        //}
     }
 }

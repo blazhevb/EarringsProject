@@ -69,7 +69,8 @@ namespace Earrings.Controllers
         {
             var cookie = FormsAuthentication.GetAuthCookie(HttpContext.User.Identity.Name, false);
             cookie.Name = "authtkn";
-            cookie.Values.Add(username, token); 
+            string usernameToken = String.Join(":", username, token);
+            cookie.Value = usernameToken; 
             Response.Cookies.Add(cookie);
         }
 

@@ -24,3 +24,18 @@ D:\Workstuff\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLog
 D:\Workstuff\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.pdb
 D:\Workstuff\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.SqlServer.dll
 D:\Workstuff\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EarringsBusinessLogic.dll.config
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EarringsBusinessLogic.dll
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EarringsBusinessLogic.pdb
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EarringsDbProj.dll
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.dll
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EarringsDbProj.pdb
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EarringsDbProj.dll.config
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.xml
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.csprojAssemblyReference.cache
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.csproj.CoreCompileInputs.cache
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.csproj.CopyComplete
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.dll
+D:\Personal Projects\EarringsProject\EarringsBusinessLogic\obj\Debug\EarringsBusinessLogic.pdb
