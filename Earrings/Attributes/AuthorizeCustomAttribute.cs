@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using EarringsBusinessLogic.Authentication.Contracts;
 using EarringsBusinessLogic.Authentication;
 using System.Collections.Specialized;
+using System.Web.Security;
 
 namespace Earrings.Attributes
 {
@@ -15,12 +16,34 @@ namespace Earrings.Attributes
         private string token;
         private string requestToken;
 
-        public AuthorizeCustomAttribute()
+        public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            //bool s = AuthorizeCustomAttribute.SkipAuthorization(HttpContext.Current.Request.)
+            if(SkipAuthorization(filterContext.ActionDescriptor))
+            {
+                return;
+            }
             GetUsername();
             IAuthenticatable mgr = new AuthenticationManager();
-            this.token = mgr.FetchToken(this.username);
+            if(this.token == null)
+            {
+                this.token = mgr.FetchToken(this.username);
+            }
+            base.OnAuthorization(filterContext);
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket("authtkn", false, 0);
+            HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(ticket), new string[] { "user" });
+        }
+
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+
+            if(this.token != null && this.token.Equals(this.requestToken))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void GetUsername()
@@ -33,9 +56,10 @@ namespace Earrings.Attributes
             }           
         }
 
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        private static bool SkipAuthorization(ActionDescriptor actions)
         {
-            if(this.token.Equals(this.requestToken))
+            if(actions.IsDefined(typeof(AllowAnonymousAttribute), true) || 
+                actions.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true))
             {
                 return true;
             }
@@ -43,12 +67,7 @@ namespace Earrings.Attributes
             {
                 return false;
             }
+            
         }
-
-        //private static bool SkipAuthorization(ControllerContext context)
-        //{
-        //    context.RouteData.GetRequiredString("AllowAnonymous");
-        //    return true;
-        //}
     }
 }

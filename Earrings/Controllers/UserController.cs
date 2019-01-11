@@ -61,13 +61,14 @@ namespace Earrings.Controllers
         public ActionResult Login()
         {
             ViewBag.Message = "Login form.";
-            bool x = Request.IsAuthenticated;
+            bool x = this.HttpContext.Request.IsAuthenticated;
+
             return View();
         }
 
         private void ReturnTokenCookie(string username, string token)
         {
-            var cookie = FormsAuthentication.GetAuthCookie(HttpContext.User.Identity.Name, false);
+            var cookie = FormsAuthentication.GetAuthCookie(username, false);
             cookie.Name = "authtkn";
             string usernameToken = String.Join(":", username, token);
             cookie.Value = usernameToken; 
