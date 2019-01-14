@@ -29,8 +29,7 @@ namespace Earrings.Attributes
                 this.token = mgr.FetchToken(this.username);
             }
             base.OnAuthorization(filterContext);
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket("authtkn", false, 0);
-            HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(ticket), new string[] { "user" });
+
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)

@@ -1,14 +1,10 @@
-﻿using Earrings.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using EarringsBusinessLogic;
+﻿using Earrings.Attributes;
+using Earrings.Models;
 using EarringsBusinessLogic.Authentication;
 using EarringsBusinessLogic.Authentication.Contracts;
+using System;
+using System.Web.Mvc;
 using System.Web.Security;
-using Earrings.Attributes;
 
 namespace Earrings.Controllers
 {
@@ -35,7 +31,7 @@ namespace Earrings.Controllers
             if(ModelState.IsValid)
             {
                 IToken token = new Token();
-                string tk = token.GetToken();
+                string tkn = token.GetToken();
                 EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();
                 int result = (int)userFactory.CreateUser(model.Email, model.Username, model.Password, tk);
 
@@ -48,7 +44,9 @@ namespace Earrings.Controllers
                         ModelState.AddModelError("Username", "Username is already taken.");
                         break;
                     case 4:
-                        ReturnTokenCookie(model.Username, tk);                        
+                        ReturnTokenCookie(model.Username, tkn);
+                        AuthenticationManager manager = new AuthenticationManager();
+                        manager.LogIn(model.Username, tkn);
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
