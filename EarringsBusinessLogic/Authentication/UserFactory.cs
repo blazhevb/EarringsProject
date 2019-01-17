@@ -8,7 +8,7 @@ namespace EarringsBusinessLogic.Authentication
 {
     public class UserFactory : IUserFactory
     {
-        public AuthenticationResult CreateUser(string email, string username, string password, string token)
+        public AuthenticationResult CreateUser(string email, string username, string password)
         {
             PasswordManager passwordManager = new PasswordManager();
             byte[] encryptedPassword = passwordManager.GetEncryptedPassword(username, password);
@@ -35,8 +35,7 @@ namespace EarringsBusinessLogic.Authentication
                         UserEmail = email,
                         Username = username,
                         UsernamePassword = encryptedPassword,
-                        UserRegistrationDate = DateTime.Now,
-                        UserToken = token
+                        UserRegistrationDate = DateTime.Now
                     };
 
                     ctx.UsersCredentials.Add(credentials);

@@ -7,6 +7,7 @@ using EarringsBusinessLogic.Authentication.Contracts;
 using EarringsBusinessLogic.Authentication;
 using System.Collections.Specialized;
 using System.Web.Security;
+using EarringsBusinessLogic.Authentication.Abstractions;
 
 namespace Earrings.Attributes
 {
@@ -23,14 +24,13 @@ namespace Earrings.Attributes
                 return;
             }
             GetUsername();
-            IAuthenticatable mgr = new AuthenticationManager();
+            AuthenticationManager mgr = new AuthenticationManager();
             if(this.token == null)
             {
-                this.token = mgr.FetchToken(this.username);
+                this.token = mgr.GetTokenFromDb(this.username);
             }
             base.OnAuthorization(filterContext);
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket("authtkn", false, 0);
-            HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(ticket), new string[] { "user" });
+            
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)

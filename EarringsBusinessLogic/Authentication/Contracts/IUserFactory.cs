@@ -9,6 +9,6 @@ namespace EarringsBusinessLogic.Authentication.Contracts
 {
     public interface IUserFactory
     {
-        AuthenticationResult CreateUser(string email, string username, string password, string token);
+        AuthenticationResult CreateUser(string email, string username, string password);
     }
 }

@@ -9,15 +9,13 @@ using EarringsBusinessLogic.Authentication;
 using EarringsBusinessLogic.Authentication.Contracts;
 using System.Web.Security;
 using Earrings.Attributes;
+using EarringsBusinessLogic.Authentication.Abstractions;
 
 namespace Earrings.Controllers
 {
     [AuthorizeCustom]
     public class UserController : Controller
     {
-        private const string COOKIE_NAME = "tknck";
-        private const string token = "";
-
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Register()
@@ -34,10 +32,8 @@ namespace Earrings.Controllers
 
             if(ModelState.IsValid)
             {
-                IToken token = new Token();
-                string tk = token.GetToken();
                 EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();
-                int result = (int)userFactory.CreateUser(model.Email, model.Username, model.Password, tk);
+                int result = (int)userFactory.CreateUser(model.Email, model.Username, model.Password);
 
                 switch(result)
                 {
@@ -48,7 +44,8 @@ namespace Earrings.Controllers
                         ModelState.AddModelError("Username", "Username is already taken.");
                         break;
                     case 4:
-                        ReturnTokenCookie(model.Username, tk);                        
+                        AuthenticationManagerBase authenticationManager = new AuthenticationManager();
+                        authenticationManager.Login(model.Username);
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");

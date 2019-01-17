@@ -8,6 +8,8 @@ namespace EarringsBusinessLogic.Authentication.Contracts
 {
     public interface IAuthenticatable
     {
-        string FetchToken(string username);
+        void Login(string username);
+
+        void LoginWithPassword(string username, string password);
     }
 }
