@@ -1,12 +1,9 @@
-﻿using Earrings.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using EarringsBusinessLogic;
+﻿using Earrings.Attributes;
+using Earrings.Models;
 using EarringsBusinessLogic.Authentication;
 using EarringsBusinessLogic.Authentication.Contracts;
+using System;
+using System.Web.Mvc;
 using System.Web.Security;
 using Earrings.Attributes;
 using EarringsBusinessLogic.Authentication.Abstractions;
@@ -32,6 +29,8 @@ namespace Earrings.Controllers
 
             if(ModelState.IsValid)
             {
+                IToken token = new Token();
+                string tkn = token.GetToken();
                 EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();
                 int result = (int)userFactory.CreateUser(model.Email, model.Username, model.Password);
 
@@ -46,6 +45,9 @@ namespace Earrings.Controllers
                     case 4:
                         AuthenticationManagerBase authenticationManager = new AuthenticationManager();
                         authenticationManager.Login(model.Username);
+                        ReturnTokenCookie(model.Username, tkn);
+                        AuthenticationManager manager = new AuthenticationManager();
+                        manager.LogIn(model.Username, tkn);
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");

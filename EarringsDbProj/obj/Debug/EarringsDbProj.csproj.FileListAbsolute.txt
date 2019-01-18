@@ -17,4 +17,3 @@ D:\Workstuff\EarringsProject\EarringsDbProj\obj\Debug\EarringsDbProj.dll
 D:\Workstuff\EarringsProject\EarringsDbProj\obj\Debug\EarringsDbProj.pdb
 D:\Workstuff\EarringsProject\EarringsDbProj\bin\Debug\EntityFramework.SqlServer.dll
 D:\Workstuff\EarringsProject\EarringsDbProj\bin\Debug\EntityFramework.SqlServer.xml
-D:\Workstuff\EarringsProject\EarringsDbProj\obj\Debug\EarringsDbProj.csprojResolveAssemblyReference.cache

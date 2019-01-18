@@ -30,7 +30,6 @@ namespace Earrings.Attributes
                 this.token = mgr.GetTokenFromDb(this.username);
             }
             base.OnAuthorization(filterContext);
-            
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
