@@ -14,11 +14,14 @@ namespace EarringsBusinessLogic.Authentication
 {
     public class AuthenticationManager : AuthenticationManagerBase
     {
+        private HttpContext httpContext;
+
         private IToken token;
 
-        public AuthenticationManager()
+        public AuthenticationManager(HttpContext httpContext)
         {
             this.token = new Token();
+            this.httpContext = httpContext;
         }
 
         public override void Login(string username)
@@ -32,13 +35,9 @@ namespace EarringsBusinessLogic.Authentication
                     if(credentials != null)
                     {
                         credentials.UserToken = tkn;
-                        context.SaveChanges();
-
-                        IIdentity identity = new GenericIdentity(username);
-                        IPrincipal principal = new GenericPrincipal(identity, new string[] { "user" });
+                        context.SaveChanges(); 
 
                         ReturnTokenCookie(username, tkn);
-                        //HttpContext.Current.User = principal;
                     }
                 }
             }
@@ -49,18 +48,6 @@ namespace EarringsBusinessLogic.Authentication
         }
 
         public string GetTokenFromDb(string username)
-        public void LogIn(string username, string token)
-        {
-            IIdentity identity = new GenericIdentity(username);
-            //IPrincipal principal = new GenericPrincipal(identity, new string[] { "user" });
-
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.MinValue, false, token);
-            IPrincipal principal = new GenericPrincipal(new GenericIdentity(""), new string[0]);
-            //FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "username", DateTime.UtcNow, DateTime.MinValue, false, token); )
-            //HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(ticket), new string[] { "user" });
-        }
-
-        public string FetchToken(string username)
         {
             string token = null;
             using(EarringsDatabaseEntities context = new EarringsDatabaseEntities())
@@ -69,15 +56,28 @@ namespace EarringsBusinessLogic.Authentication
             }
             return token;
         }
+        public void LogIn(string username, string token)
+        {
+            
+            
+            IIdentity identity = new GenericIdentity(username);
+
+            IPrincipal principal = new GenericPrincipal(identity, new string[] { "user" });
+
+            //FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.MinValue, false, token);
+            //IPrincipal principal = new GenericPrincipal(new GenericIdentity(""), new string[0]);
+            //FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "username", DateTime.UtcNow, DateTime.MinValue, false, token); )
+            //HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(ticket), new string[] { "user" });
+        }
 
         private void ReturnTokenCookie(string username, string token)
         {
-            var cookie = System.Web.Security.FormsAuthentication.GetAuthCookie("authtkn", false);
+            var cookie = new HttpCookie("authtcn");
+
             string usernameToken = String.Join(":", username, token);
             cookie.Value = usernameToken;
-            //HttpContext.Current.Response.Cookies.Add(cookie);
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket("authtkn", false, 0);
-            HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(ticket), new string[] { "user" });
+            HttpContext.Current.Response.Cookies.Add(cookie);
+
         }
 
     }

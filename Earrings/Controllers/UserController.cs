@@ -2,11 +2,11 @@
 using Earrings.Models;
 using EarringsBusinessLogic.Authentication;
 using EarringsBusinessLogic.Authentication.Contracts;
-using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Earrings.Attributes;
 using EarringsBusinessLogic.Authentication.Abstractions;
+using System.Security.Principal;
 
 namespace Earrings.Controllers
 {
@@ -29,8 +29,6 @@ namespace Earrings.Controllers
 
             if(ModelState.IsValid)
             {
-                IToken token = new Token();
-                string tkn = token.GetToken();
                 EarringsBusinessLogic.Authentication.Contracts.IUserFactory userFactory = new UserFactory();
                 int result = (int)userFactory.CreateUser(model.Email, model.Username, model.Password);
 
@@ -43,11 +41,12 @@ namespace Earrings.Controllers
                         ModelState.AddModelError("Username", "Username is already taken.");
                         break;
                     case 4:
-                        AuthenticationManagerBase authenticationManager = new AuthenticationManager();
+                        AuthenticationManagerBase authenticationManager = new AuthenticationManager(System.Web.HttpContext.Current);
                         authenticationManager.Login(model.Username);
-                        ReturnTokenCookie(model.Username, tkn);
-                        AuthenticationManager manager = new AuthenticationManager();
-                        manager.LogIn(model.Username, tkn);
+                        IIdentity identity = new GenericIdentity(model.Username);
+                        IPrincipal principal = new GenericPrincipal(identity, new string[] { "user" });
+                        System.Web.HttpContext.Current.User = principal;
+
                         return RedirectToAction("Index", "Home");
                     default:
                         ModelState.AddModelError("Other", "Please try again.");
@@ -64,15 +63,5 @@ namespace Earrings.Controllers
 
             return View();
         }
-
-        private void ReturnTokenCookie(string username, string token)
-        {
-            var cookie = FormsAuthentication.GetAuthCookie(username, false);
-            cookie.Name = "authtkn";
-            string usernameToken = String.Join(":", username, token);
-            cookie.Value = usernameToken; 
-            Response.Cookies.Add(cookie);
-        }
-
     }
 }

@@ -8,6 +8,7 @@ using EarringsBusinessLogic.Authentication;
 using System.Collections.Specialized;
 using System.Web.Security;
 using EarringsBusinessLogic.Authentication.Abstractions;
+using System.Security.Principal;
 
 namespace Earrings.Attributes
 {
@@ -24,12 +25,15 @@ namespace Earrings.Attributes
                 return;
             }
             GetUsername();
-            AuthenticationManager mgr = new AuthenticationManager();
+            AuthenticationManager mgr = new AuthenticationManager(HttpContext.Current);
             if(this.token == null)
             {
                 this.token = mgr.GetTokenFromDb(this.username);
+                if(this.token.Equals(this.requestToken));
+                IIdentity identity = new GenericIdentity(this.username);
+                IPrincipal principal = new GenericPrincipal(identity, new string[] { "user" });
+                HttpContext.Current.User = principal;
             }
-            base.OnAuthorization(filterContext);
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
@@ -47,7 +51,7 @@ namespace Earrings.Attributes
 
         private void GetUsername()
         {
-            string[] cookieValues = HttpContext.Current.Request.Cookies["authtkn"].Value.Split(':');
+            string[] cookieValues = HttpContext.Current.Request.Cookies["authtcn"].Value.Split(':');
             if(cookieValues.Length == 2)
             {
                 this.username = cookieValues[0];
