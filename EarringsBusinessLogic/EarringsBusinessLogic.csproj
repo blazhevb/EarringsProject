@@ -50,7 +50,9 @@
   <ItemGroup>
     <Compile Include="Authentication\Abstractions\AuthenticationManagerBase.cs" />
     <Compile Include="Authentication\AuthenticationManager.cs" />
+    <Compile Include="Authentication\AuthenticationModule.cs" />
     <Compile Include="Authentication\Contracts\IAuthenticatable.cs" />
+    <Compile Include="Authentication\Contracts\IAuthenticator.cs" />
     <Compile Include="Authentication\Contracts\IPasswordManager.cs" />
     <Compile Include="Authentication\Contracts\IToken.cs" />
     <Compile Include="Authentication\Contracts\IUserFactory.cs" />

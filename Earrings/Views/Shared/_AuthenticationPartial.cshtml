@@ -1,6 +1,9 @@
-﻿<div>
+﻿@using EarringsBusinessLogic.Authentication.Contracts;
+@using EarringsBusinessLogic.Authentication;
+<div>
     @{
-        if(Request.IsAuthenticated)
+        IAuthenticator module = new AuthenticationModule();
+        if(module.Authenticate())
         {
             <ul class="nav navbar-nav navbar-right">
                 <li>@Html.ActionLink("Profile", "Login", "User")</li>
